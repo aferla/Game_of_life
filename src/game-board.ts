@@ -1,15 +1,10 @@
 import * as p5 from "p5";
-import Cell from "./cell"
 
-type SimpleMouseEvent = {
-    x: number,
-    y: number
-}
+import { Grid, nextGeneration } from "./life_manager";
 
 class GameBoard {
-
-    private readonly CELLS_WIDTH = 32;
-    private readonly CELLS_HEIGHT = 24;
+    private readonly X_CELL_COUNT = 32;
+    private readonly Y_CELL_COUNT = 24;
 
     private readonly width: number;
     private readonly height: number;
@@ -17,34 +12,51 @@ class GameBoard {
     private readonly cellWidth;
     private readonly cellHeight;
 
-    // Stupid - put in some kind of manager for an array
-    private readonly cells = Array<Cell>();
+    private grid;
+
+    private animating = false;
 
     constructor(width: number, height: number){
         this.width = width;
         this.height = height;
 
-        this.cellWidth = this.width / this.CELLS_WIDTH;
-        this.cellHeight = this.height / this.CELLS_HEIGHT;
+        this.cellWidth = this.width / this.X_CELL_COUNT;
+        this.cellHeight = this.height / this.Y_CELL_COUNT;
+
+        this.grid = new Grid(this.X_CELL_COUNT, this.Y_CELL_COUNT);
     }
 
-    handleClick(event: MouseEvent){
-        const xCell = Math.ceil(event.x / this.cellWidth) -1;
-        const yCell = Math.ceil(event.y / this.cellHeight) -1;
+    handleClick(x: number, y: number){
+        const xCell = Math.ceil(x / this.cellWidth) -1;
+        const yCell = Math.ceil(y / this.cellHeight) -1;
 
-        this.cells.push(new Cell(xCell * this.cellWidth, yCell * this.cellHeight,
-             this.cellWidth, this.cellHeight));
+        const value = this.grid.getCell(xCell, yCell);
+        if (value){
+            this.grid.setCell(xCell, yCell, 0);
+        }
+        else{
+            this.grid.setCell(xCell, yCell, 1);
+        }
+
+    }
+
+    nextGeneration() {
+        this.grid = nextGeneration(this.grid);
+    }
+
+    toggleAnimation(start: boolean){
+        this.animating = start;
     }
 
     draw(p: p5){
         p.fill(255, 0, 0);
         this.drawGrid(p);
 
-        // Just a test
-        p.fill(p.color(255,0,0));
-        this.cells.forEach((cell) => {
-            cell.draw(p);
-        });
+        this.renderGrid(p, this.grid);
+
+        if (this.animating){
+            this.grid = nextGeneration(this.grid);
+        }
     }
 
     private drawGrid(p: p5){
@@ -55,6 +67,18 @@ class GameBoard {
         for (let y = 0; y <= this.height; y+=this.cellHeight){
             p.line(0, y, this.width, y);
         }
+    }
+
+    private renderGrid(p: p5, grid: Grid){
+        grid.getCells((x, y, value) => {
+            if (value){
+                p.fill(255,0,0);
+            }
+            else {
+                p.fill(255,255,255);
+            }
+            p.rect(x * this.cellWidth, y * this.cellHeight, this.cellWidth, this.cellHeight);
+        });
     }
 }
 

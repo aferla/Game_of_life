@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "module": "commonjs",
+      "module": "es6",
       // "esModuleInterop": true,
       "noImplicitAny": true,
       // "outFile": "./build/build.js",

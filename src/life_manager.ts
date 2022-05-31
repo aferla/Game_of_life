@@ -45,6 +45,14 @@ export class Grid {
 		return this.cells[x][y]
 	}
 
+	getCells(mapper: (x: number, y: number, value: number) => void) {
+		for (let y = 0; y < this.height; y++){
+			for(let x = 0; x < this.width; x++){
+				mapper(x,y, this.cells[x][y]);
+			}
+		}
+	}
+
 	debugString(): string {
 		let debugString = "";
 		for (let y = 0; y < this.height; y++){
