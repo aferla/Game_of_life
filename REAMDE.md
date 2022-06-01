@@ -1,6 +1,11 @@
-# TODO
+# Game of Life
 
-- [x] Teleport cells
-- [ ] Better styling for buttons
-- [ ] Exclude Tests from build
-- [x] Install Formatter
+![screenshot](/screenshot.png)
+
+Simple implementation of John Conway's Game of life.
+
+Demonstrates:
+
+- Typescript
+- Webpack
+- Jest

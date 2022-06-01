@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest src/",
     "compile": "tsc",
+    "clean": "rm -rf build/*",
     "start": "run-p start-compile start-run",
     "start-compile": "tsc --watch",
     "start-run": "webpack serve",

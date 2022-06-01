@@ -1,12 +1,41 @@
 <html>
-    <head>
-        <title>Game of Life 2</title>
+  <head>
+    <title>Game of Life 2</title>
 
-        <script src="bundle.js"></script>
-    </head>
-    <body>
-        <div class="header">
-            <h1>Game Of Life</h1>
-        </div>
-    </body>
+    <style>
+      main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      #header {
+        display: flex;
+        justify-content: center;
+      }
+
+      #grid_container {
+        display: flex;
+        justify-content: center;
+      }
+
+      #button_container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+    </style>
+
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>Game Of Life</h1>
+    </div>
+    <main>
+      <div id="grid_container"></div>
+      <div id="button_container"></div>
+    </main>
+  </body>
 </html>

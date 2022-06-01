@@ -2,20 +2,23 @@ import * as p5 from 'p5';
 import GameBoard from './game-board';
 
 function gameOfLife(p: p5) {
-  const gameBoard = new GameBoard(640, 480);
+  const gameBoard = new GameBoard(800, 600);
 
   let started = false;
 
   p.setup = () => {
-    p.frameRate(5);
-    p.createCanvas(640, 480);
+    p.frameRate(15);
+    const canvas = p.createCanvas(800, 600);
+    canvas.parent('grid_container');
 
     const nextGenButton = p.createButton('Next Generation');
+    nextGenButton.parent('button_container');
     nextGenButton.mousePressed(() => {
       gameBoard.nextGeneration();
     });
 
     const startStopButton = p.createButton('Start');
+    startStopButton.parent('button_container');
     startStopButton.mousePressed(() => {
       if (!started) {
         started = true;

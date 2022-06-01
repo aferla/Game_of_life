@@ -3,8 +3,8 @@ import * as p5 from 'p5';
 import { Grid, nextGeneration } from './life_manager';
 
 class GameBoard {
-  private readonly X_CELL_COUNT = 32;
-  private readonly Y_CELL_COUNT = 24;
+  private readonly X_CELL_COUNT = 40;
+  private readonly Y_CELL_COUNT = 30;
 
   private readonly width: number;
   private readonly height: number;
